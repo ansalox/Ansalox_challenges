@@ -49,5 +49,102 @@ Este desafío está inspirado en una **prueba técnica** para un puesto de desar
 
 ## Detalles Técnicos y Librerías Sugeridas
 
-### Estructura del Proyecto
+### Estructura del Proyecto (ejemplo no obligatorio)
 
+project/ ┣━ backend/ ┃ ┣━ src/ ┃ ┃ ┣━ config/ ┃ ┃ ┣━ controllers/ ┃ ┃ ┣━ models/ ┃ ┃ ┣━ routes/ ┃ ┃ ┗━ server.js ┃ ┣━ package.json ┃ ┗━ ... ┗━ frontend/ ┣━ src/ ┃ ┣━ components/ ┃ ┣━ pages/ ┃ ┣━ services/ ┃ ┗━ App.jsx (o .tsx) ┣━ package.json ┗━ ...
+
+
+Esta es una sugerencia. Adáptala según tu criterio, pero mantén **separados** el frontend y el backend.
+
+### Backend (Node/Express)
+
+- **Express** para definir rutas.
+- **Mongoose** para la conexión con MongoDB.
+- **bcrypt** (o similar) para **encriptar contraseñas**.
+- **jsonwebtoken** para emitir y validar **tokens JWT**.
+- **DOTENV** para manejar variables de entorno (p. ej., puerto, credenciales, URL de la DB).
+
+#### Rutas de Ejemplo
+
+1. `POST /api/auth/register`  
+   - Registra un nuevo usuario.  
+2. `POST /api/auth/login`  
+   - Verifica credenciales, devuelve un JWT.
+3. `GET /api/books`  
+   - Lista todos los libros disponibles.
+4. `POST /api/books` (solo admin)  
+   - Crea un libro.
+5. `PUT /api/books/:id` (solo admin)  
+   - Actualiza datos de un libro.
+6. `DELETE /api/books/:id` (solo admin)  
+   - Elimina un libro.
+7. `POST /api/loans` (user/admin)  
+   - Solicita un préstamo de libro.
+8. `PUT /api/loans/:id/return` (user/admin)  
+   - Registra la devolución de un libro.
+
+### Frontend (React)
+
+- **React Router** para las **rutas** de la aplicación (p. ej., `/login`, `/register`, `/books`, `/loans`).
+- **Axios** (u otra librería HTTP) para comunicarte con el backend.
+- **Redux** (o **Context API**):
+  - Manejar el estado global de la aplicación (usuarios, libros, etc.).
+- **Material-UI** o **Ant Design** (o cualquier otra) para una interfaz estilizada y componentes listos.
+
+#### Vistas Principales
+
+1. **Login** y **Registro**  
+   - Formularios controlados para capturar datos.  
+   - Llamadas al backend vía Axios.  
+   - Guardar el JWT en localStorage/cookies tras iniciar sesión.
+2. **Lista de Libros**  
+   - Vista pública para ver catálogo de libros.
+   - Opción para **crear/editar/eliminar** libros si se es administrador.
+3. **Gestión de Préstamos**  
+   - Para usuarios normales: botón “Solicitar Préstamo” cuando un libro esté disponible.
+   - Para administradores: vista con todos los préstamos activos, posibilidad de registrar devoluciones.
+4. **Panel de Usuario**  
+   - Mostrar los préstamos vigentes del usuario.
+   - Historial de préstamos pasados (si se desea).
+
+---
+
+## Requerimientos Adicionales
+
+- **Validaciones**: Debes validar en el backend que no se puedan prestar libros inexistentes o ya prestados.  
+- **Seguridad**:
+  - Middleware que verifique el token JWT y asocie la petición a un usuario.
+  - Rutas que solo permitan acceso a usuarios con rol específico, si implementas roles.
+- **Documentación**:  
+  - Se valora el uso de [Swagger](https://swagger.io/) o [Postman Collection](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/) para documentar y probar la API.
+- **Manejo de Errores**:
+  - Respuestas claras al cliente en caso de errores (usuario duplicado, token inválido, libro no encontrado, etc.).
+
+---
+
+## Entrega y Evaluación
+
+1. **Repositorio**: Proporciona un enlace a tu repositorio con dos carpetas (o dos proyectos):  
+   - `backend`  
+   - `frontend`
+2. **Instrucciones**: Añade un `README.md` con pasos para:
+   - Instalar dependencias.
+   - Configurar variables de entorno.
+   - Ejecutar tanto el **cliente** como el **servidor**.
+3. **Funcionalidad**: Se probará:
+   - El registro/login de usuarios.
+   - La CRUD de libros.
+   - El sistema de préstamos/devoluciones.
+4. **Calidad de Código**:
+   - Estructura clara y limpia.
+   - Uso apropiado de promesas (async/await) y manejo de excepciones.
+   - Buenas prácticas de React (componentes reutilizables, uso correcto de hooks).
+5. **Extras Opcionales**:
+   - Despliegue en un servicio gratuito (Heroku, Render, etc.) para mostrar la demo en vivo.
+   - Uso de testing (Jest, React Testing Library, etc.).
+   - UI extra (filtrado, paginación, búsquedas).
+
+---
+
+### ¡Éxitos en el desarrollo de tu Sistema de Biblioteca!
+Este es un **proyecto completo** que te permitirá demostrar tus habilidades en **frontend**, **backend** y **base de datos**. Tómate el tiempo necesario para planificar la arquitectura, implementar las funcionalidades y documentarlo adecuadamente. ¡Mucho éxito! 
